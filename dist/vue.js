@@ -4730,6 +4730,7 @@ function dedupe (latest, extended, sealed) {
   }
 }
 
+// !Vue构造函数
 function Vue (options) {
   if ("development" !== 'production' &&
     !(this instanceof Vue)

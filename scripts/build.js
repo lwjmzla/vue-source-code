@@ -1,7 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 const zlib = require('zlib')
-const rollup = require('rollup')
+const rollup = require('rollup') // !挺多工具类的 打包会用这个库
 const uglify = require('uglify-js')
 
 if (!fs.existsSync('dist')) {
@@ -10,7 +10,7 @@ if (!fs.existsSync('dist')) {
 
 let builds = require('./config').getAllBuilds()
 
-// filter builds via command line arg
+// filter builds via command line arg // !过滤不需要编译的
 if (process.argv[2]) {
   const filters = process.argv[2].split(',')
   builds = builds.filter(b => {

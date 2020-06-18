@@ -39,7 +39,7 @@ const builds = {
   'web-runtime-cjs': {
     entry: resolve('web/entry-runtime.js'),
     dest: resolve('dist/vue.runtime.common.js'),
-    format: 'cjs', // !CommonJS
+    format: 'cjs', // !CommonJS  module.exports = Vue;   cjs  表⽰构建出来的⽂件遵循 CommonJS 规范
     banner
   },
   // Runtime+compiler CommonJS build (CommonJS)
@@ -55,12 +55,12 @@ const builds = {
   'web-runtime-esm': {
     entry: resolve('web/entry-runtime.js'),
     dest: resolve('dist/vue.runtime.esm.js'),
-    format: 'es', // !ES Modules
+    format: 'es', // !ES Modules  export default Vue;    es  表⽰构建出来的⽂件遵循 ES Module 规范
     banner
   },
   // Runtime+compiler CommonJS build (ES Modules)
   'web-full-esm': {
-    entry: resolve('web/entry-runtime-with-compiler.js'),
+    entry: resolve('web/entry-runtime-with-compiler.js'), // !视频讲解这个
     dest: resolve('dist/vue.esm.js'),
     format: 'es',
     alias: { he: './entity-decoder' },
@@ -86,7 +86,7 @@ const builds = {
   'web-full-dev': {
     entry: resolve('web/entry-runtime-with-compiler.js'),
     dest: resolve('dist/vue.js'),
-    format: 'umd',
+    format: 'umd', // !这种就是 CDN可以使用  umd  表⽰构建出来的⽂件遵循 UMD 规范。 umd方式，支持浏览器端和node端(require方式)
     env: 'development',
     alias: { he: './entity-decoder' },
     banner
@@ -170,6 +170,7 @@ const builds = {
 
 function genConfig (name) {
   const opts = builds[name]
+  // !rollup要的配置
   const config = {
     input: opts.entry,
     external: opts.external,
