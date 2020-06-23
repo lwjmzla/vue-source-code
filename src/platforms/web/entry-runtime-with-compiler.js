@@ -14,12 +14,9 @@ const idToTemplate = cached(id => {
   return el && el.innerHTML
 })
 
-const mount = Vue.prototype.$mount
-Vue.prototype.$mount = function (
-  el?: string | Element,
-  hydrating?: boolean
-): Component {
-  el = el && query(el)
+const mount = Vue.prototype.$mount // !'./runtime/index' 里的Vue.prototype.$mount 是公用的，这里用到，runtime-only版本也会用到，但是这里要重新构造一次而已
+Vue.prototype.$mount = function (el?: string | Element, hydrating?: boolean): Component {
+  el = el && query(el) // !得到的是DOM
 
   /* istanbul ignore if */
   if (el === document.body || el === document.documentElement) {
@@ -31,7 +28,7 @@ Vue.prototype.$mount = function (
 
   const options = this.$options
   // resolve template/el and convert to render function
-  if (!options.render) {
+  if (!options.render) { // !没有render的话将template转编译成render
     let template = options.template
     if (template) {
       if (typeof template === 'string') {
@@ -54,7 +51,7 @@ Vue.prototype.$mount = function (
         return this
       }
     } else if (el) {
-      template = getOuterHTML(el)
+      template = getOuterHTML(el) // !相当于得到 <div id="app"></div>
     }
     if (template) {
       /* istanbul ignore if */

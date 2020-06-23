@@ -131,25 +131,21 @@ export function lifecycleMixin (Vue: Class<Component>) {
   }
 }
 
-export function mountComponent (
-  vm: Component,
-  el: ?Element,
-  hydrating?: boolean
-): Component {
+export function mountComponent (vm: Component, el: ?Element, hydrating?: boolean): Component {
   vm.$el = el
   if (!vm.$options.render) {
     vm.$options.render = createEmptyVNode
     if (process.env.NODE_ENV !== 'production') {
       /* istanbul ignore if */
-      if ((vm.$options.template && vm.$options.template.charAt(0) !== '#') ||
-        vm.$options.el || el) {
+      if ((vm.$options.template && vm.$options.template.charAt(0) !== '#') || vm.$options.el || el) {
+        // !平时用vue.runtime.esm.js，当你用template，不用render时报的错
         warn(
           'You are using the runtime-only build of Vue where the template ' +
           'compiler is not available. Either pre-compile the templates into ' +
           'render functions, or use the compiler-included build.',
           vm
         )
-      } else {
+      } else { // !没有写template也没写render报的错
         warn(
           'Failed to mount component: template or render function not defined.',
           vm
@@ -161,7 +157,7 @@ export function mountComponent (
 
   let updateComponent
   /* istanbul ignore if */
-  if (process.env.NODE_ENV !== 'production' && config.performance && mark) {
+  if (process.env.NODE_ENV !== 'production' && config.performance && mark) { // !config.performance && mark 这是对性能埋点相关的判断。
     updateComponent = () => {
       const name = vm._name
       const id = vm._uid
