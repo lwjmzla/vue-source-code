@@ -37,7 +37,7 @@ export function initMixin (Vue: Class<Component>) {
     } else {
       vm.$options = mergeOptions(
         resolveConstructorOptions(vm.constructor),
-        options || {},
+        options || {}, // ! new Vue({}) 传入的options 有el、data mounted 之类
         vm
       )
     }

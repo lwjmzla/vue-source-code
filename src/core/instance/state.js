@@ -144,11 +144,11 @@ function initData (vm: Component) {
         vm
       )
     } else if (!isReserved(key)) {
-      proxy(vm, `_data`, key)
+      proxy(vm, `_data`, key) // !vm.msg 获取的数据 是从 vm._data.msg里获取的，原因就是通过这个代理的实现  // 只把data弄成这样的代理
     }
   }
   // observe data
-  observe(data, true /* asRootData */)
+  observe(data, true /* asRootData */) // !响应式处理
 }
 
 export function getData (data: Function, vm: Component): any {
