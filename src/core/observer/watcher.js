@@ -42,13 +42,7 @@ export default class Watcher {
   getter: Function;
   value: any;
 
-  constructor (
-    vm: Component,
-    expOrFn: string | Function,
-    cb: Function,
-    options?: ?Object,
-    isRenderWatcher?: boolean
-  ) {
+  constructor (vm: Component,expOrFn: string | Function,cb: Function, options?: ?Object, isRenderWatcher?: boolean) {
     this.vm = vm
     if (isRenderWatcher) {
       vm._watcher = this
@@ -72,10 +66,8 @@ export default class Watcher {
     this.newDeps = []
     this.depIds = new Set()
     this.newDepIds = new Set()
-    this.expression = process.env.NODE_ENV !== 'production'
-      ? expOrFn.toString()
-      : ''
-    // parse expression for getter
+    this.expression = process.env.NODE_ENV !== 'production' ? expOrFn.toString() : '' // !就是那个函数表达式  没什么用
+    // parse expression for getter // !this.getter目的就是得到函数
     if (typeof expOrFn === 'function') {
       this.getter = expOrFn
     } else {

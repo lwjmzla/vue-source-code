@@ -24,8 +24,7 @@ if (process.env.NODE_ENV !== 'production') {
     )
   }
 
-  const hasProxy =
-    typeof Proxy !== 'undefined' && isNative(Proxy)
+  const hasProxy = typeof Proxy !== 'undefined' && isNative(Proxy) // !判断是否支持Proxy
 
   if (hasProxy) {
     const isBuiltInModifier = makeMap('stop,prevent,self,ctrl,shift,alt,meta,exact')
@@ -47,7 +46,7 @@ if (process.env.NODE_ENV !== 'production') {
       const has = key in target
       const isAllowed = allowedGlobals(key) || (typeof key === 'string' && key.charAt(0) === '_')
       if (!has && !isAllowed) {
-        warnNonPresent(target, key)
+        warnNonPresent(target, key) // !在template上使用了一个未定义的变量，然后就报错。
       }
       return has || !isAllowed
     }
@@ -66,9 +65,7 @@ if (process.env.NODE_ENV !== 'production') {
     if (hasProxy) {
       // determine which proxy handler to use
       const options = vm.$options
-      const handlers = options.render && options.render._withStripped
-        ? getHandler
-        : hasHandler
+      const handlers = options.render && options.render._withStripped ? getHandler : hasHandler // !一般是没_withStripped属性，所以是 hasHandler比较多
       vm._renderProxy = new Proxy(vm, handlers)
     } else {
       vm._renderProxy = vm

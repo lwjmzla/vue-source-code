@@ -26,11 +26,11 @@ export function initRender (vm: Component) {
   // bind the createElement fn to this instance
   // so that we get proper render context inside it.
   // args order: tag, data, children, normalizationType, alwaysNormalize
-  // internal version is used by render functions compiled from templates
-  vm._c = (a, b, c, d) => createElement(vm, a, b, c, d, false)
+  // internal version is used by render functions compiled from templates // !internal 内部的意思，有 _ 都是内部
+  vm._c = (a, b, c, d) => createElement(vm, a, b, c, d, false) // !这个是被template编译生成的render函数 使用的方法
   // normalization is always applied for the public version, used in
   // user-written render functions.
-  vm.$createElement = (a, b, c, d) => createElement(vm, a, b, c, d, true)
+  vm.$createElement = (a, b, c, d) => createElement(vm, a, b, c, d, true) // !这个给用户写的render使用
 
   // $attrs & $listeners are exposed for easier HOC creation.
   // they need to be reactive so that HOCs using them are always updated
@@ -80,6 +80,7 @@ export function renderMixin (Vue: Class<Component>) {
     // render self
     let vnode
     try {
+      // !vm._renderProxy 生产环境的话就是vm，开发环境可能是其他   vm.$createElement是一个函数，其实就是一个回调   而且render还有返回值  是 vnode
       vnode = render.call(vm._renderProxy, vm.$createElement)
     } catch (e) {
       handleError(e, vm, `render`)

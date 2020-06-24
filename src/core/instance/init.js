@@ -45,7 +45,7 @@ export function initMixin (Vue: Class<Component>) {
     if (process.env.NODE_ENV !== 'production') {
       initProxy(vm)
     } else {
-      vm._renderProxy = vm
+      vm._renderProxy = vm // ! vm._render() 里用到 vnode = render.call(vm._renderProxy, vm.$createElement)
     }
     // expose real self
     vm._self = vm

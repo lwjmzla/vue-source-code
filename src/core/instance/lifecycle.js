@@ -175,8 +175,8 @@ export function mountComponent (vm: Component, el: ?Element, hydrating?: boolean
       measure(`vue ${name} patch`, startTag, endTag)
     }
   } else {
-    updateComponent = () => {
-      vm._update(vm._render(), hydrating)
+    updateComponent = () => { // !主要就是这个
+      vm._update(vm._render(), hydrating) // !vm._render()  得到 vnode
     }
   }
 
