@@ -80,7 +80,7 @@ export function renderMixin (Vue: Class<Component>) {
     // render self
     let vnode
     try {
-      // !vm._renderProxy 生产环境的话就是vm，开发环境可能是其他   vm.$createElement是一个函数，其实就是一个回调   而且render还有返回值  是 vnode
+      // !vm._renderProxy 生产环境的话就是vm，开发环境可能是其他   vm.$createElement是一个函数，且返回vnode，其实就是一个回调   而且render还有返回值  是 vnode
       vnode = render.call(vm._renderProxy, vm.$createElement)
     } catch (e) {
       handleError(e, vm, `render`)

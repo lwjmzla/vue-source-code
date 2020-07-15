@@ -26,7 +26,7 @@ const ALWAYS_NORMALIZE = 2
 // wrapper function for providing a more flexible interface
 // without getting yelled at by flow
 export function createElement (context: Component,tag: any,data: any,children: any,normalizationType: any,alwaysNormalize: boolean): VNode | Array<VNode> {
-  if (Array.isArray(data) || isPrimitive(data)) {
+  if (Array.isArray(data) || isPrimitive(data)) { // !data 有可能不传的 所以要重赋值一遍。
     normalizationType = children
     children = data
     data = undefined

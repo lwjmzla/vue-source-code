@@ -48,6 +48,7 @@ export function initLifecycle (vm: Component) {
 }
 
 export function lifecycleMixin (Vue: Class<Component>) {
+  // !_update  给首次渲染 和  后面data 变化时用的，有 pre的 都不是首次
   Vue.prototype._update = function (vnode: VNode, hydrating?: boolean) {
     const vm: Component = this
     const prevEl = vm.$el
@@ -55,7 +56,7 @@ export function lifecycleMixin (Vue: Class<Component>) {
     const prevActiveInstance = activeInstance
     activeInstance = vm
     vm._vnode = vnode
-    // Vue.prototype.__patch__ is injected in entry points
+    // Vue.prototype.__patch__ is injected in entry points  // !在src\platforms\web\runtime\index.js
     // based on the rendering backend used.
     if (!prevVnode) {
       // initial render
